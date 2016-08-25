@@ -27,15 +27,12 @@
   </a>
 </h1>
 
-<div align="center">
-  Safely handle the `X-Forwarded-For` header in <a href="https://gitter.im/rill-js/rill">Rill</a>.
+Safely handle the `X-Forwarded-For` header in [Rill](https://gitter.im/rill-js/rill).
 
-  This middleware will update "ctx.req.ip" if a "X-Forwarded-For" header is present from a trusted ip.
-</div>
+This middleware will update "ctx.req.ip" if a "X-Forwarded-For" header is present from a trusted ip.
 
 # Installation
 
-#### Npm
 ```console
 npm install @rill/forwarded-from
 ```
