@@ -31,6 +31,8 @@ Safely handle the `X-Forwarded-For` header in [Rill](https://gitter.im/rill-js/r
 
 This middleware will update "ctx.req.ip" if a "X-Forwarded-For" header is present from a trusted ip.
 
+It will also update "ctx.req.host, ctx.req.hostname and ctx.req.port" if an "X-Forwarded-Host" header is provided from a trusted ip.
+
 # Installation
 
 ```console
@@ -48,11 +50,17 @@ const forwarded = require("@rill/forwarded-from")
 // This will only trust X-Forwarded-For from incomming requests with the provided ips and any local requests.
 app.use(forwarded({ from: ['184.1.2.3', '184.2.3.4'] }))
 
-// Example request with `X-Forwarded-For` from valid ip.
+// Example request with `X-Forwarded-For` and `X-Forwarded-Host` from valid ip.
 app.get('/test', ({ req, res })=> {
   req.forwarded //-> true
+
   req.get('X-Forwarded-For') //-> 178.1.2.3
   req.ip //-> 178.1.2.3
+
+  req.get('X-Forwarded-Host') //-> test.com:3000
+  req.host //-> test.com:3000
+  req.hostname //-> test.com
+  req.port //-> 3000
 })
 ```
 
