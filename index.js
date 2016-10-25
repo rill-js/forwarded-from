@@ -21,7 +21,10 @@ module.exports = function forwardedFrom (options) {
     var isAccepted = (ips && ips.indexOf(req.ip)) || (local && isLocal(req.ip))
 
     if (isAccepted) {
-      // Check for forwareded ip address.
+      // Mark request as forwarded.
+      req.forwarded = true
+
+      // Check for forwarded ip address.
       var forwardIP = req.get('X-Forwarded-For')
       if (forwardIP) {
         req.ip = forwardIP
@@ -36,8 +39,6 @@ module.exports = function forwardedFrom (options) {
         req.hostname = parts.hostname
         req.port = parts.port
       }
-
-      req.forwarded = true
     }
 
     return next()
